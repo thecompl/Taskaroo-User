@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "777014068698",
+    "project_id": "taskaroo-a263c",
+    "storage_bucket": "taskaroo-a263c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:777014068698:android:51107d718554e484086ce3",
+        "android_client_info": {
+          "package_name": "com.tcs.taskaroouser"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "777014068698-msdldfd1qu99799ki4oj2osfn908jihb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.tcs.taskaroouser",
+            "certificate_hash": "42944272477909303c9b9df2c75eb4d8b9a2ec33"
+          }
+        },
+        {
+          "client_id": "777014068698-ma16jjtso18mh2q5kgbi749q99593h23.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDo-IEb7vgMQySmVAa2JAmcv_f6Gs3Ngv4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "777014068698-ma16jjtso18mh2q5kgbi749q99593h23.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
