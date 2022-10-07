@@ -22,8 +22,8 @@ class _DashboardFragmentState extends State<DashboardFragment> {
 
   @override
   void initState() {
-    super.initState();
     init();
+    super.initState();
 
     setStatusBarColor(transparentColor, delayInMilliSeconds: 1000);
 
@@ -33,7 +33,10 @@ class _DashboardFragmentState extends State<DashboardFragment> {
   }
 
   void init() async {
-    future = userDashboard(isCurrentLocation: appStore.isCurrentLocation, lat: getDoubleAsync(LATITUDE), long: getDoubleAsync(LONGITUDE));
+    future = userDashboard(
+        isCurrentLocation: appStore.isCurrentLocation,
+        lat: getDoubleAsync(LATITUDE),
+        long: getDoubleAsync(LONGITUDE));
   }
 
   @override
@@ -68,7 +71,8 @@ class _DashboardFragmentState extends State<DashboardFragment> {
                     children: [
                       SliderLocationComponent(
                         sliderList: snap.data!.slider.validate(),
-                        notificationReadCount: snap.data!.notificationUnreadCount.validate(),
+                        notificationReadCount:
+                            snap.data!.notificationUnreadCount.validate(),
                         callback: () async {
                           init();
                           await 300.milliseconds.delay;
@@ -76,19 +80,26 @@ class _DashboardFragmentState extends State<DashboardFragment> {
                         },
                       ),
                       32.height,
-                      CategoryComponent(categoryList: snap.data!.category.validate()),
+                      CategoryComponent(
+                          categoryList: snap.data!.category.validate()),
                       24.height,
-                      FeaturedServiceListComponent(serviceList: snap.data!.featuredServices.validate()),
-                      ServiceListComponent(serviceList: snap.data!.service.validate()),
+                      FeaturedServiceListComponent(
+                          serviceList: snap.data!.featuredServices.validate()),
+                      ServiceListComponent(
+                          serviceList: snap.data!.service.validate()),
                       16.height,
-                      CustomerRatingsComponent(reviewData: snap.data!.dashboardCustomerReview.validate()),
+                      CustomerRatingsComponent(
+                          reviewData:
+                              snap.data!.dashboardCustomerReview.validate()),
                     ],
                   );
                 }
                 return snapWidgetHelper(snap, loadingWidget: Offstage());
               },
             ),
-            Observer(builder: (context) => LoaderWidget().visible(appStore.isLoading)),
+            Observer(
+                builder: (context) =>
+                    LoaderWidget().visible(appStore.isLoading)),
           ],
         ),
       ),

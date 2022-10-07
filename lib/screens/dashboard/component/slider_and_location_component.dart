@@ -33,6 +33,7 @@ class _SliderLocationComponentState extends State<SliderLocationComponent> {
   @override
   void initState() {
     super.initState();
+     log("value");
     if (getBoolAsync(AUTO_SLIDER_STATUS, defaultValue: true) && widget.sliderList.length >= 2) {
       _timer = Timer.periodic(Duration(seconds: 5), (Timer timer) {
         if (_currentPage < widget.sliderList.length - 1) {

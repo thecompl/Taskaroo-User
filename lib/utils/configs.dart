@@ -5,12 +5,12 @@ const APP_NAME_TAG_LINE = 'On-Demand Home Services App';
 const DEFAULT_LANGUAGE = 'en';
 
 // You can change this to your provider package name
-const PROVIDER_PACKAGE_NAME = 'com.iqonic.provider';
+const PROVIDER_PACKAGE_NAME = 'com.tcs.taskaroouser';
 const IOS_LINK_FOR_PARTNER = "https://apps.apple.com/in/app/handyman-provider-app/id1596025324";
 
 var defaultPrimaryColor = Color(0xFF5F60B9);
 
-const DOMAIN_URL = 'http://157.230.58.234';
+const DOMAIN_URL = 'http://134.209.212.164';
 const BASE_URL = '$DOMAIN_URL/api/';
 
 const ONESIGNAL_APP_ID = '';
