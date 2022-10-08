@@ -8,7 +8,7 @@ const DEFAULT_LANGUAGE = 'en';
 const PROVIDER_PACKAGE_NAME = 'com.tcs.taskaroouser';
 const IOS_LINK_FOR_PARTNER = "https://apps.apple.com/in/app/handyman-provider-app/id1596025324";
 
-var defaultPrimaryColor = Color(0xFF5F60B9);
+var defaultPrimaryColor = Color(0xFF4169e1);
 
 const DOMAIN_URL = 'http://134.209.212.164';
 const BASE_URL = '$DOMAIN_URL/api/';
