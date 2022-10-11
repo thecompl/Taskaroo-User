@@ -291,7 +291,7 @@ Future<bool> removeToWishList({required int serviceId}) async {
 Widget commonLocationWidget({required BuildContext context, required Function() onTap, Color? color}) {
   return Observer(
     builder: (_) => IconButton(
-      icon: ic_active_location.iconImage(size: 24, color: appStore.isCurrentLocation ? color ?? Colors.white : color ?? Colors.white),
+      icon: ic_location.iconImage(size: 24, color: appStore.isCurrentLocation ? color ?? Colors.white : color ?? Colors.white),
       visualDensity: VisualDensity.compact,
       onPressed: () {
         Permissions.cameraFilesAndLocationPermissionsGranted().then((value) async {

@@ -17,9 +17,11 @@ import 'package:nb_utils/nb_utils.dart';
 class SliderLocationComponent extends StatefulWidget {
   final List<SliderModel> sliderList;
   final int? notificationReadCount;
-  final VoidCallback? callback;
+  // final VoidCallback? callback;
 
-  SliderLocationComponent({required this.sliderList, this.notificationReadCount, this.callback});
+  SliderLocationComponent({required this.sliderList, this.notificationReadCount, 
+  // this.callback
+  });
 
   @override
   State<SliderLocationComponent> createState() => _SliderLocationComponentState();
@@ -82,7 +84,7 @@ class _SliderLocationComponentState extends State<SliderLocationComponent> {
               : CachedImageWidget(url: '', height: 250, width: context.width()),
           if (widget.sliderList.length.validate() > 1)
             Positioned(
-              bottom: 34,
+              bottom: 10,
               left: 0,
               right: 0,
               child: DotIndicator(
@@ -99,38 +101,40 @@ class _SliderLocationComponentState extends State<SliderLocationComponent> {
                 dotSize: 6,
               ),
             ),
-          if (appStore.isLoggedIn)
-            Positioned(
-              top: context.statusBarHeight + 16,
-              right: 16,
-              child: Container(
-                decoration: boxDecorationDefault(color: context.cardColor, shape: BoxShape.circle),
-                height: 36,
-                padding: EdgeInsets.all(8),
-                width: 36,
-                child: Stack(
-                  clipBehavior: Clip.none,
-                  children: [
-                    ic_notification.iconImage(size: 24, color: primaryColor).center(),
-                    Positioned(
-                      top: -20,
-                      right: -10,
-                      child: widget.notificationReadCount.validate() > 0
-                          ? Container(
-                              padding: EdgeInsets.all(4),
-                              child: FittedBox(
-                                child: Text(widget.notificationReadCount.toString(), style: primaryTextStyle(size: 12, color: Colors.white)),
-                              ),
-                              decoration: boxDecorationDefault(color: Colors.red, shape: BoxShape.circle),
-                            )
-                          : Offstage(),
-                    )
-                  ],
-                ),
-              ).onTap(() {
-                NotificationScreen().launch(context);
-              }),
-            )
+          // if (appStore.isLoggedIn)
+          //   Positioned(
+          //     top: context.statusBarHeight + 16,
+          //     right: 16,
+          //     child:
+          //      Container(
+          //       decoration: boxDecorationDefault(color: context.cardColor, shape: BoxShape.circle),
+          //       height: 36,
+          //       padding: EdgeInsets.all(8),
+          //       width: 36,
+          //       child: Stack(
+          //         clipBehavior: Clip.none,
+          //         children: [
+          //           ic_notification.iconImage(size: 24, color: primaryColor).center(),
+          //           Positioned(
+          //             top: -20,
+          //             right: -10,
+          //             child: widget.notificationReadCount.validate() > 0
+          //                 ? Container(
+          //                     padding: EdgeInsets.all(4),
+          //                     child: FittedBox(
+          //                       child: Text(widget.notificationReadCount.toString(), style: primaryTextStyle(size: 12, color: Colors.white)),
+          //                     ),
+          //                     decoration: boxDecorationDefault(color: Colors.red, shape: BoxShape.circle),
+          //                   )
+          //                 : Offstage(),
+          //           )
+          //         ],
+          //       ),
+          //     ).onTap(() {
+          //       NotificationScreen().launch(context);
+          //     }),
+          //   )
+        
         ],
       ),
     );
@@ -153,51 +157,53 @@ class _SliderLocationComponentState extends State<SliderLocationComponent> {
       clipBehavior: Clip.none,
       children: [
         getSliderWidget(),
-        Positioned(
-          bottom: -24,
-          right: 16,
-          left: 16,
-          child: Row(
-            children: [
-              Container(
-                padding: EdgeInsets.all(8),
-                decoration: commonDecoration,
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    ic_location.iconImage(color: appStore.isDarkMode ? Colors.white : Colors.black),
-                    8.width,
-                    Text(
-                      appStore.isCurrentLocation ? getStringAsync(CURRENT_ADDRESS) : language.lblLocationOff,
-                      style: secondaryTextStyle(),
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                    ).expand(),
-                    8.width,
-                    commonLocationWidget(
-                      context: context,
-                      color: appStore.isCurrentLocation ? primaryColor : grey,
-                      onTap: () {
-                        widget.callback?.call();
-                      },
-                    )
-                  ],
-                ),
-              ).expand(),
-              16.width,
-              GestureDetector(
-                onTap: () {
-                  SearchListScreen(isFromSearch: true).launch(context);
-                },
-                child: Container(
-                  padding: EdgeInsets.all(16),
-                  decoration: commonDecoration,
-                  child: ic_search.iconImage(color: primaryColor),
-                ),
-              ),
-            ],
-          ),
-        ),
+        // Positioned(
+        //   bottom: -24,
+        //   right: 16,
+        //   left: 16,
+        //   child: Row(
+        //     children: [
+        //       Container(
+        //         padding: EdgeInsets.all(8),
+        //         decoration: commonDecoration,
+        //         child: Row(
+        //           crossAxisAlignment: CrossAxisAlignment.center,
+        //           children: [
+        //             ic_location.iconImage(color: appStore.isDarkMode ? Colors.white : Colors.black),
+        //             8.width,
+        //             Text(
+        //               appStore.isCurrentLocation ? getStringAsync(CURRENT_ADDRESS) : language.lblLocationOff,
+        //               style: secondaryTextStyle(),
+        //               maxLines: 2,
+        //               overflow: TextOverflow.ellipsis,
+        //             ).expand(),
+        //             8.width,
+        //             commonLocationWidget(
+        //               context: context,
+        //               color: appStore.isCurrentLocation ? primaryColor : grey,
+        //               onTap: () {
+        //                 widget.callback?.call();
+        //               },
+        //             )
+        //           ],
+        //         ),
+        //       ).expand(),
+              
+        //       16.width,
+        //       GestureDetector(
+        //         onTap: () {
+        //           SearchListScreen(isFromSearch: true).launch(context);
+        //         },
+        //         child: Container(
+        //           padding: EdgeInsets.all(16),
+        //           decoration: commonDecoration,
+        //           child: ic_search.iconImage(color: primaryColor),
+        //         ),
+        //       ),
+        //     ],
+        //   ),
+        // ),
+      
       ],
     );
   }

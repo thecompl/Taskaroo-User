@@ -21,7 +21,7 @@ class ServiceComponent extends StatefulWidget {
 
   final bool isFavouriteService;
 
-  ServiceComponent({this.serviceData, this.width, this.isBorderEnabled, this.isFavouriteService = false, this.onUpdate});
+   ServiceComponent({this.serviceData, this.width, this.isBorderEnabled, this.isFavouriteService = false, this.onUpdate});
 
   @override
   ServiceComponentState createState() => ServiceComponentState();

@@ -197,7 +197,7 @@ Future<List<CityListResponse>> getCityList(Map request) async {
 //endregion
 
 //region User Api
-Future<DashboardResponse> userDashboard({bool isCurrentLocation = false, double? lat, double? long}) async {
+Future<DashboardResponse> userDashboard({bool isCurrentLocation = true, double? lat, double? long}) async {
   appStore.setLoading(true);
   DashboardResponse? _dashboardResponse;
 
