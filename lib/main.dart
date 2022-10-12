@@ -23,6 +23,9 @@ import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
 
+import 'services/location_service.dart';
+import 'utils/permissions.dart';
+
 AppStore appStore = AppStore();
 FilterStore filterStore = FilterStore();
 BaseLanguage language = LanguageEn();
@@ -60,7 +63,8 @@ void main() async {
     setupFirebaseRemoteConfig();
   });
 
-  await appStore.setLanguage(getStringAsync(SELECTED_LANGUAGE_CODE, defaultValue: DEFAULT_LANGUAGE));
+  await appStore.setLanguage(
+      getStringAsync(SELECTED_LANGUAGE_CODE, defaultValue: DEFAULT_LANGUAGE));
   await appStore.setLoggedIn(getBoolAsync(IS_LOGGED_IN), isInitializing: true);
 
   int themeModeIndex = getIntAsync(THEME_MODE_INDEX);
@@ -71,7 +75,8 @@ void main() async {
   }
 
   OneSignal.shared.setAppId(ONESIGNAL_APP_ID).then((value) {
-    OneSignal.shared.setNotificationWillShowInForegroundHandler((OSNotificationReceivedEvent event) {
+    OneSignal.shared.setNotificationWillShowInForegroundHandler(
+        (OSNotificationReceivedEvent event) {
       event.complete(event.notification);
     });
 
@@ -82,30 +87,43 @@ void main() async {
     saveOneSignalPlayerId();
   });
 
-  await appStore.setUseMaterialYouTheme(getBoolAsync(USE_MATERIAL_YOU_THEME), isInitializing: true);
+  await appStore.setUseMaterialYouTheme(getBoolAsync(USE_MATERIAL_YOU_THEME),
+      isInitializing: true);
 
   if (appStore.isLoggedIn) {
     await appStore.setUserId(getIntAsync(USER_ID), isInitializing: true);
-    await appStore.setFirstName(getStringAsync(FIRST_NAME), isInitializing: true);
+    await appStore.setFirstName(getStringAsync(FIRST_NAME),
+        isInitializing: true);
     await appStore.setLastName(getStringAsync(LAST_NAME), isInitializing: true);
-    await appStore.setUserEmail(getStringAsync(USER_EMAIL), isInitializing: true);
+    await appStore.setUserEmail(getStringAsync(USER_EMAIL),
+        isInitializing: true);
     await appStore.setUserName(getStringAsync(USERNAME), isInitializing: true);
-    await appStore.setContactNumber(getStringAsync(CONTACT_NUMBER), isInitializing: true);
-    await appStore.setUserProfile(getStringAsync(PROFILE_IMAGE), isInitializing: true);
+    await appStore.setContactNumber(getStringAsync(CONTACT_NUMBER),
+        isInitializing: true);
+    await appStore.setUserProfile(getStringAsync(PROFILE_IMAGE),
+        isInitializing: true);
     await appStore.setCountryId(getIntAsync(COUNTRY_ID), isInitializing: true);
     await appStore.setStateId(getIntAsync(STATE_ID), isInitializing: true);
     await appStore.setCityId(getIntAsync(COUNTRY_ID), isInitializing: true);
     await appStore.setUId(getStringAsync(UID), isInitializing: true);
     await appStore.setToken(getStringAsync(TOKEN), isInitializing: true);
     await appStore.setAddress(getStringAsync(ADDRESS), isInitializing: true);
-    await appStore.setCurrencyCode(getStringAsync(CURRENCY_COUNTRY_CODE), isInitializing: true);
-    await appStore.setCurrencyCountryId(getStringAsync(CURRENCY_COUNTRY_ID), isInitializing: true);
-    await appStore.setCurrencySymbol(getStringAsync(CURRENCY_COUNTRY_SYMBOL), isInitializing: true);
-    await appStore.setPrivacyPolicy(getStringAsync(PRIVACY_POLICY), isInitializing: true);
-    await appStore.setLoginType(getStringAsync(LOGIN_TYPE), isInitializing: true);
-    await appStore.setTermConditions(getStringAsync(TERM_CONDITIONS), isInitializing: true);
-    await appStore.setInquiryEmail(getStringAsync(INQUIRY_EMAIL), isInitializing: true);
-    await appStore.setHelplineNumber(getStringAsync(HELPLINE_NUMBER), isInitializing: true);
+    await appStore.setCurrencyCode(getStringAsync(CURRENCY_COUNTRY_CODE),
+        isInitializing: true);
+    await appStore.setCurrencyCountryId(getStringAsync(CURRENCY_COUNTRY_ID),
+        isInitializing: true);
+    await appStore.setCurrencySymbol(getStringAsync(CURRENCY_COUNTRY_SYMBOL),
+        isInitializing: true);
+    await appStore.setPrivacyPolicy(getStringAsync(PRIVACY_POLICY),
+        isInitializing: true);
+    await appStore.setLoginType(getStringAsync(LOGIN_TYPE),
+        isInitializing: true);
+    await appStore.setTermConditions(getStringAsync(TERM_CONDITIONS),
+        isInitializing: true);
+    await appStore.setInquiryEmail(getStringAsync(INQUIRY_EMAIL),
+        isInitializing: true);
+    await appStore.setHelplineNumber(getStringAsync(HELPLINE_NUMBER),
+        isInitializing: true);
   }
 
   runApp(MyApp());
@@ -119,12 +137,30 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   void initState() {
+    location();
     super.initState();
   }
 
   @override
   void dispose() {
     super.dispose();
+  }
+  
+  void location() async {
+    Permissions.cameraFilesAndLocationPermissionsGranted().then((value) async {
+      await setValue(PERMISSION_STATUS, value);
+      appStore.setLoading(true);
+      await setValue(PERMISSION_STATUS, value);
+      await getUserLocation().then((value) async {
+        await appStore.setCurrentLocation(true);
+        appStore.setLoading(false);
+      }).catchError((e) {
+        appStore.setLoading(false);
+        toast(e.toString(), print: true);
+      });
+    }).catchError((e) {
+      toast(e.toString(), print: true);
+    });
   }
 
   @override
@@ -141,7 +177,8 @@ class _MyAppState extends State<MyApp> {
                 home: SplashScreen(),
                 theme: AppTheme.lightTheme(color: snap.data),
                 darkTheme: AppTheme.darkTheme(color: snap.data),
-                themeMode: appStore.isDarkMode ? ThemeMode.dark : ThemeMode.light,
+                themeMode:
+                    appStore.isDarkMode ? ThemeMode.dark : ThemeMode.light,
                 title: APP_NAME,
                 supportedLocales: LanguageDataModel.languageLocales(),
                 localizationsDelegates: [

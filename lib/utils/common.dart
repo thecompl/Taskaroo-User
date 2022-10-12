@@ -311,7 +311,7 @@ Widget commonLocationWidget({required BuildContext context, required Function() 
 
             if (res ?? false) {
               appStore.setLoading(true);
-
+                log("value----");
               await setValue(PERMISSION_STATUS, value);
               await getUserLocation().then((value) async {
                 await appStore.setCurrentLocation(!appStore.isCurrentLocation);
