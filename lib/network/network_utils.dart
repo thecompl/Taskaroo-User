@@ -43,7 +43,7 @@ Future<Response> buildHttpResponse(String endPoint, {HttpMethod method = HttpMet
   if (await isNetworkAvailable()) {
     var headers = buildHeaderTokens(isStripePayment: isStripePayment, request: request);
     Uri url = buildBaseUrl(endPoint);
-    log(url);
+    log("URL==>"+url.toString());
 
     Response response;
 

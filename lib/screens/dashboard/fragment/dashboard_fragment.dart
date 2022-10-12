@@ -39,14 +39,7 @@ class _DashboardFragmentState extends State<DashboardFragment> {
   @override
   void initState() {
     init();
-
-    commonLocationWidget(
-      context: context,
-      color: appStore.isCurrentLocation ? primaryColor : Colors.black,
-      onTap: () {
-        // commonLocationWidget()
-      },
-    );
+    location();
     super.initState();
     setStatusBarColor(transparentColor, delayInMilliSeconds: 1000);
     LiveStream().on(LIVESTREAM_UPDATE_DASHBOARD, (p0) {
@@ -86,7 +79,7 @@ class _DashboardFragmentState extends State<DashboardFragment> {
       await setValue(PERMISSION_STATUS, value);
       appStore.setLoading(true);
       await setValue(PERMISSION_STATUS, value);
-      log("loc==>"+appStore.isCurrentLocation.toString());
+      log("loc==>" + appStore.isCurrentLocation.toString());
       await getUserLocation().then((value) async {
         await appStore.setCurrentLocation(true);
         appStore.setLoading(false);
@@ -102,179 +95,182 @@ class _DashboardFragmentState extends State<DashboardFragment> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: RefreshIndicator(
-        onRefresh: () async {
-          init();
-          location();
-          setState(() {});
-          return await 2.seconds.delay;
-        },
-        child: Stack(
-          children: [
-            FutureBuilder<DashboardResponse>(
-              future: future,
-              builder: (context, snap) {
-                if (snap.hasData) {
-                  return AnimatedScrollView(
-                    physics: AlwaysScrollableScrollPhysics(),
-                    listAnimationType: ListAnimationType.FadeIn,
-                    children: [
-                      Container(
-                        height: 20,
-                        color: Colors.white,
-                      ),
-                      Container(
-                        height: 120,
-                        color: Colors.white,
-                        child: Column(children: [
-                          Container(
-                            padding: EdgeInsets.all(8),
-                            // decoration: commonDecoration,
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                commonLocationWidget(
-                                  context: context,
-                                  color: appStore.isCurrentLocation
-                                      ? primaryColor
-                                      : Colors.black,
-                                  onTap: () {
-                                    location();
-                                  },
-                                ),
-                                8.width,
-                                Text(
-                                  appStore.isCurrentLocation
-                                      ? getStringAsync(CURRENT_ADDRESS)
-                                      : language.lblLocationOff,
-                                  style: secondaryTextStyle(),
-                                  maxLines: 2,
-                                  overflow: TextOverflow.ellipsis,
-                                ).expand(),
-                                if (appStore.isLoggedIn)
-                                  Container(
-                                    decoration: boxDecorationDefault(
-                                        color: context.cardColor,
-                                        shape: BoxShape.circle),
-                                    height: 36,
-                                    padding: EdgeInsets.all(8),
-                                    width: 36,
-                                    child: Stack(
-                                      clipBehavior: Clip.none,
-                                      children: [
-                                        ic_notification
-                                            .iconImage(
-                                                size: 24, color: primaryColor)
-                                            .center(),
-                                        Positioned(
-                                          top: -20,
-                                          right: -10,
-                                          child: widget.notificationReadCount
-                                                      .validate() >
-                                                  0
-                                              ? Container(
-                                                  padding: EdgeInsets.all(4),
-                                                  child: FittedBox(
-                                                    child: Text(
-                                                        widget
-                                                            .notificationReadCount
-                                                            .toString(),
-                                                        style:
-                                                            primaryTextStyle(
-                                                                size: 12,
-                                                                color: Colors
-                                                                    .white)),
-                                                  ),
-                                                  decoration:
-                                                      boxDecorationDefault(
-                                                          color: Colors.red,
-                                                          shape: BoxShape
-                                                              .circle),
-                                                )
-                                              : Offstage(),
-                                        )
-                                      ],
-                                    ),
-                                  ).onTap(() {
-                                    NotificationScreen().launch(context);
-                                  })
-                              ],
-                            ),
-                          ).expand(),
-                          Container(
-                            color: Colors.white,
-                            child: Padding(
-                              padding: EdgeInsets.only(
-                                  right: 10, left: 10, bottom: 10),
-                              child: GestureDetector(
-                                  onTap: () {
-                                    SearchListScreen(isFromSearch: true)
-                                        .launch(context);
-                                  },
-                                  child: Container(
-                                    height: 50,
-                                    padding: EdgeInsets.all(10),
-                                    decoration: commonDecoration,
-                                    child: Row(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      children: [
-                                        Text(
-                                          "Search for All Services",
-                                          style: secondaryTextStyle(),
-                                          maxLines: 2,
-                                          overflow: TextOverflow.ellipsis,
-                                        ).expand(),
-                                        8.width,
-                                        ic_search.iconImage(
-                                            color: primaryColor),
-                                      ],
-                                    ),
-                                  )
-                                  // .expand(),
-                                  //  Container(
-                                  //   padding: EdgeInsets.all(16),
-                                  //   decoration: commonDecoration,
-                                  //   child: ic_search.iconImage(color: primaryColor),
-                                  // ),
+    return SafeArea(
+      child: Scaffold(
+        body: RefreshIndicator(
+          onRefresh: () async {
+            init();
+            location();
+            setState(() {});
+            return await 2.seconds.delay;
+          },
+          child: Stack(
+            children: [
+              FutureBuilder<DashboardResponse>(
+                future: future,
+                builder: (context, snap) {
+                  if (snap.hasData) {
+                    return AnimatedScrollView(
+                      physics: AlwaysScrollableScrollPhysics(),
+                      listAnimationType: ListAnimationType.FadeIn,
+                      children: [
+                        // Container(
+                        //   height: 20,
+                        //   color: Colors.white,
+                        // ),
+                        Container(
+                          height: 120,
+                          color:appStore.isDarkMode ? context.cardColor : Colors.white, 
+                          child: Column(children: [
+                            Container(
+                              padding: EdgeInsets.all(8),
+                              // decoration: commonDecoration,
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  commonLocationWidget(
+                                    context: context,
+                                    color: appStore.isCurrentLocation
+                                        ? primaryColor
+                                        : Colors.black,
+                                    onTap: () {
+                                      location();
+                                    },
                                   ),
+                                  8.width,
+                                  Text(
+                                    appStore.isCurrentLocation
+                                        ? getStringAsync(CURRENT_ADDRESS)
+                                        : language.lblLocationOff,
+                                    style: secondaryTextStyle(),
+                                    maxLines: 2,
+                                    overflow: TextOverflow.ellipsis,
+                                  ).expand(),
+                                  if (appStore.isLoggedIn)
+                                    Container(
+                                      decoration: boxDecorationDefault(
+                                          color: context.cardColor,
+                                          shape: BoxShape.circle),
+                                      height: 36,
+                                      padding: EdgeInsets.all(8),
+                                      width: 36,
+                                      child: Stack(
+                                        clipBehavior: Clip.none,
+                                        children: [
+                                          ic_notification
+                                              .iconImage(
+                                                  size: 24, color: primaryColor)
+                                              .center(),
+                                          Positioned(
+                                            top: -20,
+                                            right: -10,
+                                            child: widget.notificationReadCount
+                                                        .validate() >
+                                                    0
+                                                ? Container(
+                                                    padding: EdgeInsets.all(4),
+                                                    child: FittedBox(
+                                                      child: Text(
+                                                          widget
+                                                              .notificationReadCount
+                                                              .toString(),
+                                                          style:
+                                                              primaryTextStyle(
+                                                                  size: 12,
+                                                                  color: Colors
+                                                                      .white)),
+                                                    ),
+                                                    decoration:
+                                                        boxDecorationDefault(
+                                                            color: Colors.red,
+                                                            shape: BoxShape
+                                                                .circle),
+                                                  )
+                                                : Offstage(),
+                                          )
+                                        ],
+                                      ),
+                                    ).onTap(() {
+                                      NotificationScreen().launch(context);
+                                    })
+                                ],
+                              ),
+                            ).expand(),
+                            Container(
+                              color:appStore.isDarkMode ? context.cardColor : Colors.white, 
+                              child: Padding(
+                                padding: EdgeInsets.only(
+                                    right: 10, left: 10, bottom: 10),
+                                child: GestureDetector(
+                                    onTap: () {
+                                      SearchListScreen(isFromSearch: true)
+                                          .launch(context);
+                                    },
+                                    child: Container(
+                                      height: 50,
+                                      padding: EdgeInsets.all(10),
+                                      decoration: commonDecoration,
+                                      child: Row(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                            "Search for All Services",
+                                            style: secondaryTextStyle(),
+                                            maxLines: 2,
+                                            overflow: TextOverflow.ellipsis,
+                                          ).expand(),
+                                          8.width,
+                                          ic_search.iconImage(
+                                              color: primaryColor),
+                                        ],
+                                      ),
+                                    )
+                                    // .expand(),
+                                    //  Container(
+                                    //   padding: EdgeInsets.all(16),
+                                    //   decoration: commonDecoration,
+                                    //   child: ic_search.iconImage(color: primaryColor),
+                                    // ),
+                                    ),
+                              ),
                             ),
-                          ),
-                        ]),
-                      ),
-                      SliderLocationComponent(
-                        sliderList: snap.data!.slider.validate(),
-                        notificationReadCount:
-                            snap.data!.notificationUnreadCount.validate(),
-                        // callback: () async {
-                        //   init();
-                        //   await 300.milliseconds.delay;
-                        //   setState(() {});
-                        // },
-                      ),
-                      10.height,
-                      CategoryComponent(
-                          categoryList: snap.data!.category.validate()),
-                      24.height,
-                      FeaturedServiceListComponent(
-                          serviceList: snap.data!.featuredServices.validate()),
-                      ServiceListComponent(
-                          serviceList: snap.data!.service.validate()),
-                      16.height,
-                      CustomerRatingsComponent(
-                          reviewData:
-                              snap.data!.dashboardCustomerReview.validate()),
-                    ],
-                  );
-                }
-                return snapWidgetHelper(snap, loadingWidget: Offstage());
-              },
-            ),
-            Observer(
-                builder: (context) =>
-                    LoaderWidget().visible(appStore.isLoading)),
-          ],
+                          ]),
+                        ),
+                        SliderLocationComponent(
+                          sliderList: snap.data!.slider.validate(),
+                          notificationReadCount:
+                              snap.data!.notificationUnreadCount.validate(),
+                          // callback: () async {
+                          //   init();
+                          //   await 300.milliseconds.delay;
+                          //   setState(() {});
+                          // },
+                        ),
+                        10.height,
+                        CategoryComponent(
+                            categoryList: snap.data!.category.validate()),
+                        24.height,
+                        FeaturedServiceListComponent(
+                            serviceList:
+                                snap.data!.featuredServices.validate()),
+                        ServiceListComponent(
+                            serviceList: snap.data!.service.validate()),
+                        16.height,
+                        CustomerRatingsComponent(
+                            reviewData:
+                                snap.data!.dashboardCustomerReview.validate()),
+                      ],
+                    );
+                  }
+                  return snapWidgetHelper(snap, loadingWidget: Offstage());
+                },
+              ),
+              Observer(
+                  builder: (context) =>
+                      LoaderWidget().visible(appStore.isLoading)),
+            ],
+          ),
         ),
       ),
     );

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:booking_system_flutter/component/view_all_label_component.dart';
 import 'package:booking_system_flutter/main.dart';
 import 'package:booking_system_flutter/model/service_data_model.dart';
@@ -15,12 +17,13 @@ class FeaturedServiceListComponent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (serviceList.isEmpty) return Offstage();
-
     return Container(
       padding: EdgeInsets.only(bottom: 16),
       width: context.width(),
       decoration: BoxDecoration(
-        color: appStore.isDarkMode ? context.cardColor : context.primaryColor.withOpacity(0.1),
+        color: appStore.isDarkMode
+            ? context.cardColor
+            : context.primaryColor.withOpacity(0.1),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -34,12 +37,32 @@ class FeaturedServiceListComponent extends StatelessWidget {
             },
           ).paddingSymmetric(horizontal: 16),
           if (serviceList.isNotEmpty)
-            HorizontalList(
-              itemCount: serviceList.length,
-              spacing: 16,
-              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-              itemBuilder: (context, index) => ServiceComponent(serviceData: serviceList[index], width: 280, isBorderEnabled: true),
-            )
+            ListView.builder(
+                shrinkWrap: true,
+                physics: NeverScrollableScrollPhysics(),
+                itemCount: serviceList.length,
+                itemBuilder: (BuildContext context, int index) => (Column(
+                      children: [
+                        ViewAllLabel(
+                          label:
+                              "${serviceList[index].subCategoryName.validate().isNotEmpty ? serviceList[index].subCategoryName.validate() : serviceList[index].categoryName.validate()}",
+                          list: serviceList,
+                          onTap: () {
+                            SearchListScreen(isFeatured: "1").launch(context);
+                          },
+                        ).paddingSymmetric(horizontal: 16),
+                        HorizontalList(
+                          itemCount: serviceList.length,
+                          spacing: 16,
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 16, vertical: 16),
+                          itemBuilder: (context, index) => ServiceComponent(
+                              serviceData: serviceList[index],
+                              width: 280,
+                              isBorderEnabled: true),
+                        )
+                      ],
+                    )))
           else
             Container(
               padding: EdgeInsets.symmetric(horizontal: 16, vertical: 32),
