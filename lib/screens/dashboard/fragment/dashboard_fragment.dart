@@ -147,7 +147,7 @@ class _DashboardFragmentState extends State<DashboardFragment> {
                                           ? getStringAsync(CURRENT_ADDRESS)
                                           : language.lblLocationOff,
                                       style: secondaryTextStyle(),
-                                      maxLines: 2,
+                                      maxLines: 1,
                                       overflow: TextOverflow.ellipsis,
                                     ).expand(),
                                     if (appStore.isLoggedIn)
@@ -262,7 +262,8 @@ class _DashboardFragmentState extends State<DashboardFragment> {
                           24.height,
                           FeaturedServiceListComponent(
                               serviceList:
-                                  snap.data!.featuredServices.validate()),
+                                  snap.data!.featuredServices.validate(),
+                              category: snap.data!.category.validate()),
                           ServiceListComponent(
                               serviceList: snap.data!.service.validate()),
                           16.height,

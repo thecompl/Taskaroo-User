@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:booking_system_flutter/component/view_all_label_component.dart';
 import 'package:booking_system_flutter/main.dart';
+import 'package:booking_system_flutter/model/category_model.dart';
 import 'package:booking_system_flutter/model/service_data_model.dart';
 import 'package:booking_system_flutter/screens/service/component/service_component.dart';
 import 'package:booking_system_flutter/screens/service/search_list_screen.dart';
@@ -11,8 +12,9 @@ import 'package:nb_utils/nb_utils.dart';
 
 class FeaturedServiceListComponent extends StatelessWidget {
   final List<ServiceData> serviceList;
+  final List<CategoryData>? category;
 
-  FeaturedServiceListComponent({required this.serviceList});
+  FeaturedServiceListComponent({required this.serviceList, this.category});
 
   @override
   Widget build(BuildContext context) {
@@ -29,38 +31,78 @@ class FeaturedServiceListComponent extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           16.height,
-          ViewAllLabel(
-            label: language.lblFeatured,
-            list: serviceList,
-            onTap: () {
-              SearchListScreen(isFeatured: "1").launch(context);
-            },
-          ).paddingSymmetric(horizontal: 16),
+          // ViewAllLabel(
+          //   label: language.lblFeatured,
+          //   list: serviceList,
+          //   onTap: () {
+          //     SearchListScreen(isFeatured: "1").launch(context);
+          //   },
+          // ).paddingSymmetric(horizontal: 16),
           if (serviceList.isNotEmpty)
             ListView.builder(
                 shrinkWrap: true,
                 physics: NeverScrollableScrollPhysics(),
-                itemCount: serviceList.length,
-                itemBuilder: (BuildContext context, int index) => (Column(
+                itemCount: category?.length,
+                itemBuilder: (BuildContext context, int indexs) => (Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        ViewAllLabel(
-                          label:
-                              "${serviceList[index].subCategoryName.validate().isNotEmpty ? serviceList[index].subCategoryName.validate() : serviceList[index].categoryName.validate()}",
-                          list: serviceList,
-                          onTap: () {
-                            SearchListScreen(isFeatured: "1").launch(context);
-                          },
-                        ).paddingSymmetric(horizontal: 16),
-                        HorizontalList(
-                          itemCount: serviceList.length,
-                          spacing: 16,
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 16, vertical: 16),
-                          itemBuilder: (context, index) => ServiceComponent(
-                              serviceData: serviceList[index],
-                              width: 280,
-                              isBorderEnabled: true),
-                        )
+                        ListView.builder(
+                            shrinkWrap: true,
+                            physics: NeverScrollableScrollPhysics(),
+                            itemCount: serviceList.length,
+                            itemBuilder: (BuildContext context, int indexss) {
+                              if (category![indexs].name ==
+                                  serviceList[indexss].categoryName) {
+                                return Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      ViewAllLabel(
+                                        label:
+                                            '${category![indexs].name.validate()}',
+                                        list: category![indexs].name ==
+                                                serviceList[indexss]
+                                                    .categoryName
+                                            ? serviceList
+                                            : null,
+                                        onTap: () {
+                                          SearchListScreen(
+                                                  categoryId: category![indexs]
+                                                      .id
+                                                      .validate(),
+                                                  categoryName:
+                                                      category![indexs].name)
+                                              .launch(context);
+                                        },
+                                      ).paddingSymmetric(horizontal: 16),
+                                      HorizontalList(
+                                        itemCount: serviceList.length,
+                                        //  spacing: 16,
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: 0, vertical: 5),
+                                        itemBuilder: (context, index) {
+                                          if (category![indexs].name ==
+                                              serviceList[index].categoryName) {
+                                            return Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  ServiceComponent(
+                                                      serviceData:
+                                                          serviceList[index],
+                                                      width: 280,
+                                                      isBorderEnabled: true),
+                                                ]);
+                                          } else {
+                                            return Container();
+                                          }
+                                        },
+                                      ),
+                                    ]);
+                              } else {
+                                return Container();
+                              }
+                            })
                       ],
                     )))
           else
