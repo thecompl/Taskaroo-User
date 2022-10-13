@@ -264,9 +264,9 @@ class _DashboardFragmentState extends State<DashboardFragment> {
                               serviceList:
                                   snap.data!.featuredServices.validate(),
                               category: snap.data!.category.validate()),
-                          ServiceListComponent(
-                              serviceList: snap.data!.service.validate()),
-                          16.height,
+                          // ServiceListComponent(
+                          //     serviceList: snap.data!.service.validate()),
+                          // 16.height,
                           CustomerRatingsComponent(
                               reviewData: snap.data!.dashboardCustomerReview
                                   .validate()),

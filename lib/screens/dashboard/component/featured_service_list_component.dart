@@ -46,63 +46,51 @@ class FeaturedServiceListComponent extends StatelessWidget {
                 itemBuilder: (BuildContext context, int indexs) => (Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        ListView.builder(
-                            shrinkWrap: true,
-                            physics: NeverScrollableScrollPhysics(),
-                            itemCount: serviceList.length,
-                            itemBuilder: (BuildContext context, int indexss) {
-                              if (category![indexs].name ==
-                                  serviceList[indexss].categoryName) {
-                                return Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      ViewAllLabel(
-                                        label:
-                                            '${category![indexs].name.validate()}',
-                                        list: category![indexs].name ==
-                                                serviceList[indexss]
-                                                    .categoryName
-                                            ? serviceList
-                                            : null,
-                                        onTap: () {
-                                          SearchListScreen(
-                                                  categoryId: category![indexs]
-                                                      .id
-                                                      .validate(),
-                                                  categoryName:
-                                                      category![indexs].name)
-                                              .launch(context);
-                                        },
-                                      ).paddingSymmetric(horizontal: 16),
-                                      HorizontalList(
-                                        itemCount: serviceList.length,
-                                        //  spacing: 16,
-                                        padding: EdgeInsets.symmetric(
-                                            horizontal: 0, vertical: 5),
-                                        itemBuilder: (context, index) {
-                                          if (category![indexs].name ==
-                                              serviceList[index].categoryName) {
-                                            return Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  ServiceComponent(
-                                                      serviceData:
-                                                          serviceList[index],
-                                                      width: 280,
-                                                      isBorderEnabled: true),
-                                                ]);
-                                          } else {
-                                            return Container();
-                                          }
-                                        },
-                                      ),
-                                    ]);
-                              } else {
-                                return Container();
-                              }
-                            })
+                        // ListView.builder(
+                        //     shrinkWrap: true,
+                        //     physics: NeverScrollableScrollPhysics(),
+                        //     itemCount: serviceList.length,
+                        //     itemBuilder: (BuildContext context, int indexss) {
+                        //       if (category![indexs].id ==
+                        //           serviceList[indexss].categoryId) {
+                        //         return ViewAllLabel(
+                        //           label: '${category![indexs].name.validate()}',
+                        //           list: serviceList,
+                        //           onTap: () {
+                        //             SearchListScreen(
+                        //                     categoryId:
+                        //                         category![indexs].id.validate(),
+                        //                     categoryName:
+                        //                         category![indexs].name)
+                        //                 .launch(context);
+                        //           },
+                        //         ).paddingSymmetric(horizontal: 16);
+                        //       }else {
+                        //         return
+                        //         Container();
+                        //       }
+                        //     }),
+                        HorizontalList(
+                          itemCount: serviceList.length,
+                          //  spacing: 16,
+                          padding:
+                              EdgeInsets.symmetric(horizontal: 0, vertical: 5),
+                          itemBuilder: (context, index) {
+                            if (category![indexs].id ==
+                                serviceList[index].categoryId) {
+                              return Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    ServiceComponent(
+                                        serviceData: serviceList[index],
+                                        width: 280,
+                                        isBorderEnabled: true),
+                                  ]);
+                            } else {
+                              return Container();
+                            }
+                          },
+                        )
                       ],
                     )))
           else

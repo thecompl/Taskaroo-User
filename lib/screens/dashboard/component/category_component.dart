@@ -19,7 +19,7 @@ class CategoryComponent extends StatefulWidget {
 class CategoryComponentState extends State<CategoryComponent> {
   @override
   void initState() {
-     print("log dd"+ widget.categoryList.toString());
+     
     super.initState();
     init();
   }
