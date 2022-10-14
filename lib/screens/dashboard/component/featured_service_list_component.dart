@@ -53,18 +53,17 @@ class FeaturedServiceListComponent extends StatelessWidget {
                         //     itemBuilder: (BuildContext context, int indexss) {
                         //       if (category![indexs].id ==
                         //           serviceList[indexss].categoryId) {
-                        //         return ViewAllLabel(
-                        //           label: '${category![indexs].name.validate()}',
-                        //           list: serviceList,
-                        //           onTap: () {
-                        //             SearchListScreen(
-                        //                     categoryId:
-                        //                         category![indexs].id.validate(),
-                        //                     categoryName:
-                        //                         category![indexs].name)
-                        //                 .launch(context);
-                        //           },
-                        //         ).paddingSymmetric(horizontal: 16);
+                        //         return
+                        ViewAllLabel(
+                          label: '${category![indexs].name.validate()}',
+                          list: serviceList,
+                          onTap: () {
+                            SearchListScreen(
+                                    categoryId: category![indexs].id.validate(),
+                                    categoryName: category![indexs].name)
+                                .launch(context);
+                          },
+                        ).paddingSymmetric(horizontal: 16),
                         //       }else {
                         //         return
                         //         Container();
@@ -72,20 +71,16 @@ class FeaturedServiceListComponent extends StatelessWidget {
                         //     }),
                         HorizontalList(
                           itemCount: serviceList.length,
-                          //  spacing: 16,
+                           spacing: 3,
                           padding:
-                              EdgeInsets.symmetric(horizontal: 0, vertical: 5),
+                              EdgeInsets.symmetric(horizontal: 5, vertical: 2),
                           itemBuilder: (context, index) {
                             if (category![indexs].id ==
                                 serviceList[index].categoryId) {
-                              return Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    ServiceComponent(
-                                        serviceData: serviceList[index],
-                                        width: 280,
-                                        isBorderEnabled: true),
-                                  ]);
+                              return ServiceComponent(
+                                  serviceData: serviceList[index],
+                                  width: 150,
+                                  isBorderEnabled: true);
                             } else {
                               return Container();
                             }

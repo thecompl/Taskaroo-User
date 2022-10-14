@@ -61,7 +61,7 @@ class _SliderLocationComponentState extends State<SliderLocationComponent> {
 
   Widget getSliderWidget() {
     return SizedBox(
-      height: 325,
+      height: 180,
       width: context.width(),
       child: Stack(
         children: [

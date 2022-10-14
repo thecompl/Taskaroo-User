@@ -146,7 +146,9 @@ class _DashboardFragmentState extends State<DashboardFragment> {
                                       appStore.isCurrentLocation
                                           ? getStringAsync(CURRENT_ADDRESS)
                                           : language.lblLocationOff,
-                                      style: secondaryTextStyle(),
+                                      style: secondaryTextStyle(
+                                        size: 12
+                                      ),
                                       maxLines: 1,
                                       overflow: TextOverflow.ellipsis,
                                     ).expand(),
