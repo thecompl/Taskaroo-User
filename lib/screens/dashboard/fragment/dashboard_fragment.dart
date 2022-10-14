@@ -68,7 +68,7 @@ class _DashboardFragmentState extends State<DashboardFragment> {
   Decoration get commonDecoration {
     return boxDecorationDefault(
       color: context.cardColor,
-      boxShadow: defaultBoxShadow(blurRadius: 0, spreadRadius: 0),
+      boxShadow: defaultBoxShadow(blurRadius: 2, spreadRadius: 0),
       border: Border.all(color: context.dividerColor),
       borderRadius: radius(),
     );

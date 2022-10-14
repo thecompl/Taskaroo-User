@@ -66,7 +66,7 @@ class _SliderLocationComponentState extends State<SliderLocationComponent> {
 
   Widget getSliderWidget() {
     return SizedBox(
-      height: 180,
+      height: 190,
       width: context.width(),
       child: Stack(
         children: [
@@ -81,7 +81,7 @@ class _SliderLocationComponentState extends State<SliderLocationComponent> {
                               url: data.sliderImage.validate(),
                               height: 250,
                               width: context.width(),
-                              fit: BoxFit.cover)
+                              fit: BoxFit.fill)
                           .onTap(() {
                         //TODO: Static String.. Make constant
                         if (data.type == 'service') {
