@@ -132,6 +132,7 @@ class _DashboardFragmentState extends State<DashboardFragment> {
                                 child: Row(
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
+                                    
                                     commonLocationWidget(
                                       context: context,
                                       color: appStore.isCurrentLocation
