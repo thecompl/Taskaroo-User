@@ -21,9 +21,13 @@ class _CustomerRatingScreenState extends State<CustomerRatingScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: appBarWidget(language.lblReviewsOnServices, textColor: Colors.white, color: context.primaryColor, backWidget: BackWidget()),
+      appBar: appBarWidget(language.lblReviewsOnServices,
+          textColor: Colors.white,
+          color: context.primaryColor,
+          backWidget: BackWidget()),
       body: widget.reviewData.validate().isEmpty
-          ? BackgroundComponent(text: language.lblNoRateYet, image: no_rating_bar)
+          ? BackgroundComponent(
+              text: language.lblNoRateYet, image: no_rating_bar)
           : AnimatedListView(
               padding: EdgeInsets.fromLTRB(8, 16, 8, 80),
               slideConfiguration: sliderConfigurationGlobal,

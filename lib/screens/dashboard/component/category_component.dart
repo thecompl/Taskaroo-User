@@ -19,7 +19,6 @@ class CategoryComponent extends StatefulWidget {
 class CategoryComponentState extends State<CategoryComponent> {
   @override
   void initState() {
-     
     super.initState();
     init();
   }
@@ -58,13 +57,17 @@ class CategoryComponentState extends State<CategoryComponent> {
             columnCount: 1,
             itemCount: widget.categoryList.validate().length,
             listAnimationType: ListAnimationType.Scale,
-            scaleConfiguration: ScaleConfiguration(duration: 300.milliseconds, delay: 50.milliseconds),
+            scaleConfiguration: ScaleConfiguration(
+                duration: 300.milliseconds, delay: 50.milliseconds),
             itemBuilder: (_, index) {
               CategoryData data = widget.categoryList![index];
 
               return GestureDetector(
                 onTap: () {
-                  SearchListScreen(categoryId: data.id.validate(), categoryName: data.name).launch(context);
+                  SearchListScreen(
+                          categoryId: data.id.validate(),
+                          categoryName: data.name)
+                      .launch(context);
                 },
                 child: CategoryWidget(categoryData: data),
               );

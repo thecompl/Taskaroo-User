@@ -42,7 +42,9 @@ class _CustomerRatingWidgetState extends State<CustomerRatingWidget> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               CachedImageWidget(
-                url: data.attchments.validate().isNotEmpty ? data.attchments!.first.validate() : '',
+                url: data.attchments.validate().isNotEmpty
+                    ? data.attchments!.first.validate()
+                    : '',
                 height: 80,
                 width: 80,
                 fit: BoxFit.cover,
@@ -52,13 +54,19 @@ class _CustomerRatingWidgetState extends State<CustomerRatingWidget> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('${data.serviceName.validate()}', style: boldTextStyle(size: 20), maxLines: 3, overflow: TextOverflow.ellipsis),
+                  Text('${data.serviceName.validate()}',
+                      style: boldTextStyle(size: 20),
+                      maxLines: 3,
+                      overflow: TextOverflow.ellipsis),
                   TextButton(
-                    style: ButtonStyle(padding: MaterialStateProperty.all(EdgeInsets.all(0))),
+                    style: ButtonStyle(
+                        padding: MaterialStateProperty.all(EdgeInsets.all(0))),
                     onPressed: () {
-                      ServiceDetailScreen(serviceId: data.serviceId.validate()).launch(context);
+                      ServiceDetailScreen(serviceId: data.serviceId.validate())
+                          .launch(context);
                     },
-                    child: Text(language.viewDetail, style: secondaryTextStyle()),
+                    child:
+                        Text(language.viewDetail, style: secondaryTextStyle()),
                   ),
                 ],
               ).flexible()
@@ -78,7 +86,8 @@ class _CustomerRatingWidgetState extends State<CustomerRatingWidget> {
         children: [
           Row(
             children: [
-              Text(language.lblYourComment, style: boldTextStyle(size: 18)).expand(),
+              Text(language.lblYourComment, style: boldTextStyle(size: 18))
+                  .expand(),
               ic_edit_square.iconImage(size: 16).paddingAll(8).onTap(() async {
                 Map<String, dynamic>? dialogData = await showInDialog(
                   context,

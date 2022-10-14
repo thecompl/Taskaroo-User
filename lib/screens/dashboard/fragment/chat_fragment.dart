@@ -24,7 +24,8 @@ class UserChatListScreen extends StatelessWidget {
       ),
       body: PaginateFirestore(
         itemBuilder: (context, snap, index) {
-          ContactModel contact = ContactModel.fromJson(snap[index].data() as Map<String, dynamic>);
+          ContactModel contact =
+              ContactModel.fromJson(snap[index].data() as Map<String, dynamic>);
           return UserItemBuilder(userUid: contact.uid.validate());
         },
         options: GetOptions(source: Source.serverAndCache),

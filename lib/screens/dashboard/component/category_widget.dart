@@ -28,22 +28,28 @@ class CategoryWidget extends StatelessWidget {
             decoration: boxDecorationDefault(
               boxShadow: defaultBoxShadow(blurRadius: 0, spreadRadius: 0),
               color: context.cardColor,
-              borderRadius: radiusOnly(topLeft: defaultRadius, topRight: defaultRadius),
+              borderRadius:
+                  radiusOnly(topLeft: defaultRadius, topRight: defaultRadius),
             ),
             child: categoryData.categoryImage.validate().endsWith('.svg')
                 ? SvgPicture.network(
                     categoryData.categoryImage.validate(),
                     height: 60,
                     width: 60,
-                    color: appStore.isDarkMode ? Colors.white : categoryData.color.toColor(),
-                    placeholderBuilder: (context) => PlaceHolderWidget(height: 60, width: 60, color: transparentColor),
+                    color: appStore.isDarkMode
+                        ? Colors.white
+                        : categoryData.color.toColor(),
+                    placeholderBuilder: (context) => PlaceHolderWidget(
+                        height: 60, width: 60, color: transparentColor),
                   ).paddingAll(16.0)
                 : CachedImageWidget(
                     url: categoryData.categoryImage.validate(),
                     width: context.width(),
                     height: 60 + 32,
                     circle: false,
-                  ).cornerRadiusWithClipRRectOnly(topRight: defaultRadius.toInt(), topLeft: defaultRadius.toInt()),
+                  ).cornerRadiusWithClipRRectOnly(
+                    topRight: defaultRadius.toInt(),
+                    topLeft: defaultRadius.toInt()),
           ),
           Text(
             '${categoryData.name.validate()}',

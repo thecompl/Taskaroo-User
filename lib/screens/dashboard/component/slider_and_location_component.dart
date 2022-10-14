@@ -19,12 +19,15 @@ class SliderLocationComponent extends StatefulWidget {
   final int? notificationReadCount;
   // final VoidCallback? callback;
 
-  SliderLocationComponent({required this.sliderList, this.notificationReadCount, 
-  // this.callback
+  SliderLocationComponent({
+    required this.sliderList,
+    this.notificationReadCount,
+    // this.callback
   });
 
   @override
-  State<SliderLocationComponent> createState() => _SliderLocationComponentState();
+  State<SliderLocationComponent> createState() =>
+      _SliderLocationComponentState();
 }
 
 class _SliderLocationComponentState extends State<SliderLocationComponent> {
@@ -35,15 +38,17 @@ class _SliderLocationComponentState extends State<SliderLocationComponent> {
   @override
   void initState() {
     super.initState();
-     log("value");
-    if (getBoolAsync(AUTO_SLIDER_STATUS, defaultValue: true) && widget.sliderList.length >= 2) {
+    log("value");
+    if (getBoolAsync(AUTO_SLIDER_STATUS, defaultValue: true) &&
+        widget.sliderList.length >= 2) {
       _timer = Timer.periodic(Duration(seconds: 5), (Timer timer) {
         if (_currentPage < widget.sliderList.length - 1) {
           _currentPage++;
         } else {
           _currentPage = 0;
         }
-        sliderPageController.animateToPage(_currentPage, duration: Duration(milliseconds: 950), curve: Curves.easeOutQuart);
+        sliderPageController.animateToPage(_currentPage,
+            duration: Duration(milliseconds: 950), curve: Curves.easeOutQuart);
       });
 
       sliderPageController.addListener(() {
@@ -72,10 +77,18 @@ class _SliderLocationComponentState extends State<SliderLocationComponent> {
                     widget.sliderList.length,
                     (index) {
                       SliderModel data = widget.sliderList[index];
-                      return CachedImageWidget(url: data.sliderImage.validate(), height: 250, width: context.width(), fit: BoxFit.cover).onTap(() {
+                      return CachedImageWidget(
+                              url: data.sliderImage.validate(),
+                              height: 250,
+                              width: context.width(),
+                              fit: BoxFit.cover)
+                          .onTap(() {
                         //TODO: Static String.. Make constant
                         if (data.type == 'service') {
-                          ServiceDetailScreen(serviceId: data.typeId.validate().toInt()).launch(context, pageRouteAnimation: PageRouteAnimation.Fade);
+                          ServiceDetailScreen(
+                                  serviceId: data.typeId.validate().toInt())
+                              .launch(context,
+                                  pageRouteAnimation: PageRouteAnimation.Fade);
                         }
                       });
                     },
@@ -134,7 +147,6 @@ class _SliderLocationComponentState extends State<SliderLocationComponent> {
           //       NotificationScreen().launch(context);
           //     }),
           //   )
-        
         ],
       ),
     );
@@ -188,7 +200,7 @@ class _SliderLocationComponentState extends State<SliderLocationComponent> {
         //           ],
         //         ),
         //       ).expand(),
-              
+
         //       16.width,
         //       GestureDetector(
         //         onTap: () {
@@ -203,7 +215,6 @@ class _SliderLocationComponentState extends State<SliderLocationComponent> {
         //     ],
         //   ),
         // ),
-      
       ],
     );
   }

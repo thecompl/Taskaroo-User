@@ -47,7 +47,8 @@ class _BookingFragmentState extends State<BookingFragment> {
   }
 
   void init() async {
-    future = getBookingList(page, status: selectedValue, bookings: bookings, lastPageCallback: (b) {
+    future = getBookingList(page, status: selectedValue, bookings: bookings,
+        lastPageCallback: (b) {
       isLastPage = b;
     });
     isBookingTypeChanged = false;
@@ -98,7 +99,8 @@ class _BookingFragmentState extends State<BookingFragment> {
                 return AnimatedListView(
                   controller: scrollController,
                   physics: AlwaysScrollableScrollPhysics(),
-                  padding: EdgeInsets.only(bottom: 60, top: 8, right: 16, left: 16),
+                  padding:
+                      EdgeInsets.only(bottom: 60, top: 8, right: 16, left: 16),
                   itemCount: list.length,
                   shrinkWrap: true,
                   listAnimationType: ListAnimationType.Slide,
@@ -109,7 +111,8 @@ class _BookingFragmentState extends State<BookingFragment> {
 
                     return GestureDetector(
                       onTap: () {
-                        BookingDetailScreen(bookingId: data.id.validate()).launch(context);
+                        BookingDetailScreen(bookingId: data.id.validate())
+                            .launch(context);
                       },
                       child: BookingItemComponent(bookingData: data),
                     );
@@ -140,7 +143,8 @@ class _BookingFragmentState extends State<BookingFragment> {
                   setState(() {});
 
                   if (bookings.isNotEmpty) {
-                    scrollController.animateTo(0, duration: 1.seconds, curve: Curves.easeOutQuart);
+                    scrollController.animateTo(0,
+                        duration: 1.seconds, curve: Curves.easeOutQuart);
                   }
                 },
               ),
@@ -149,7 +153,11 @@ class _BookingFragmentState extends State<BookingFragment> {
               bottom: isBookingTypeChanged ? 100 : 8,
               left: 0,
               right: 0,
-              child: Observer(builder: (_) => LoaderWidget().visible(appStore.isLoading && (page != 1 || isBookingTypeChanged)).center()),
+              child: Observer(
+                  builder: (_) => LoaderWidget()
+                      .visible(appStore.isLoading &&
+                          (page != 1 || isBookingTypeChanged))
+                      .center()),
             ),
           ],
         ),
