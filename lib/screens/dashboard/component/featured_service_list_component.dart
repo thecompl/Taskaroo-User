@@ -71,7 +71,7 @@ class FeaturedServiceListComponent extends StatelessWidget {
                         //     }),
                         HorizontalList(
                           itemCount: serviceList.length,
-                          spacing: 3,
+                          spacing: 0,
                           padding:
                               EdgeInsets.symmetric(horizontal: 5, vertical: 2),
                           itemBuilder: (context, index) {
