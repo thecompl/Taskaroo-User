@@ -55,7 +55,9 @@ class ServiceComponentState extends State<ServiceComponent> {
   Widget build(BuildContext context) {
     return Container(
       child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 3,),
+        padding: EdgeInsets.symmetric(
+          horizontal: 3,
+        ),
         child: GestureDetector(
           onTap: () {
             hideKeyboard(context);
@@ -180,7 +182,7 @@ class ServiceComponentState extends State<ServiceComponent> {
                           }),
                         ),
                       Positioned(
-                        bottom: 18,
+                        bottom: 15,
                         right: 8,
                         child: Container(
                           padding:
@@ -197,29 +199,8 @@ class ServiceComponentState extends State<ServiceComponent> {
                                 widget.serviceData!.isHourlyService,
                             color: Colors.white,
                             hourlyTextColor: Colors.white,
-                            size: 14,
+                            size: 13,
                           ),
-                        ),
-                      ),
-                      Positioned(
-                        bottom: -5,
-                        left: 16,
-                        child: Row(
-                          children: [
-                            Image.asset('assets/icons/ic_star_fill.png',
-                                height: 18,
-                                color: getRatingBarColor(widget
-                                    .serviceData!.totalRating
-                                    .validate()
-                                    .toInt())),
-                            4.width,
-                            Text(
-                                "${widget.serviceData!.totalRating.validate().toStringAsFixed(1)}",
-                                style: boldTextStyle()),
-                            Text(
-                              "(${widget.serviceData!.totalReview.validate()})",
-                            ),
-                          ],
                         ),
                       ),
                     ],
@@ -228,14 +209,29 @@ class ServiceComponentState extends State<ServiceComponent> {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    8.height,
                     Marquee(
                       directionMarguee: DirectionMarguee.oneDirection,
                       child: Text(widget.serviceData!.name.validate(),
                               style: boldTextStyle())
                           .paddingSymmetric(horizontal: 16),
                     ),
-                    8.height,
+                    3.height,
+                    Row(
+                      children: [
+                        DisabledRatingBarWidget(
+                            rating: widget.serviceData!.totalRating.validate(),
+                            size: 14),
+                        4.width,
+                        Text(
+                            "${widget.serviceData!.totalRating.validate().toStringAsFixed(1)}",
+                            style: boldTextStyle()),
+                        4.width,
+                        Text(
+                          "(${widget.serviceData!.totalReview.validate()})",
+                        ),
+                      ],
+                    ).paddingSymmetric(horizontal: 10),
+                    3.height,
                     Row(
                       children: [
                         ImageBorder(
@@ -250,7 +246,7 @@ class ServiceComponentState extends State<ServiceComponent> {
                             style: secondaryTextStyle(size: 12),
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis,
-                          ).expand()
+                          ).expand(),
                       ],
                     ).onTap(() {
                       ProviderInfoScreen(

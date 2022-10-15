@@ -55,7 +55,7 @@ class CategoryComponentState extends State<CategoryComponent> {
             runSpacing: 16,
             spacing: 16,
             columnCount: 1,
-            itemCount: 9,
+            itemCount: 6,
             listAnimationType: ListAnimationType.Scale,
             scaleConfiguration: ScaleConfiguration(
                 duration: 300.milliseconds, delay: 50.milliseconds),
